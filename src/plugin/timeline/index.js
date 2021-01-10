@@ -386,11 +386,15 @@ export default class TimelinePlugin {
 
         // render primary labels
         this.setFillStyles(this.params.primaryColor);
+        renderPositions((i, curSeconds, curPixel) => {
+            if (i % primaryLabelInterval === 0) {
+                this.fillRect(curPixel, 0, 1, 0.4 * height1);
+            }
+        });
         this.setFonts(`${fontSize}px ${this.params.fontFamily}`);
         this.setFillStyles(this.params.primaryFontColor);
         renderPositions((i, curSeconds, curPixel) => {
             if (i % primaryLabelInterval === 0) {
-                this.fillRect(curPixel, 0, 1, height1);
                 this.fillText(
                     formatTime(curSeconds, pixelsPerSecond),
                     curPixel + this.params.labelPadding * this.pixelRatio,
