@@ -1,5 +1,5 @@
 /*!
- * wavesurfer.js timeline plugin 4.3.0 (2021-01-10)
+ * wavesurfer.js timeline plugin 4.3.0 (2021-01-16)
  * https://wavesurfer-js.org
  * @license BSD-3-Clause
  */
@@ -297,6 +297,8 @@ var TimelinePlugin = /*#__PURE__*/function () {
   }, {
     key: "updateCanvases",
     value: function updateCanvases() {
+      var ws = this.wavesurfer;
+      this.drawer = ws.drawer;
       var totalWidth = Math.round(this.drawer.wrapper.scrollWidth);
       var requiredCanvases = Math.ceil(totalWidth / this.maxCanvasElementWidth);
 
@@ -318,7 +320,9 @@ var TimelinePlugin = /*#__PURE__*/function () {
     value: function updateCanvasesPositioning() {
       var _this2 = this;
 
-      // cache length for performance
+      var ws = this.wavesurfer;
+      this.drawer = ws.drawer; // cache length for performance
+
       var canvasesLength = this.canvases.length;
       this.canvases.forEach(function (canvas, i) {
         // canvas width is the max element width, or if it is the last the
@@ -353,6 +357,8 @@ var TimelinePlugin = /*#__PURE__*/function () {
         return;
       }
 
+      var ws = this.wavesurfer;
+      this.drawer = ws.drawer;
       var wsParams = this.wavesurfer.params;
       var fontSize = this.params.fontSize * wsParams.pixelRatio;
       var totalSeconds = parseInt(duration, 10) + 1;
@@ -628,6 +634,8 @@ var _initialiseProps = function _initialiseProps() {
   this._onWrapperClick = function (e) {
     e.preventDefault();
     var relX = 'offsetX' in e ? e.offsetX : e.layerX;
+    var ws = _this5.wavesurfer;
+    _this5.drawer = ws.drawer;
 
     _this5.fireEvent('click', relX / _this5.wrapper.scrollWidth || 0);
   };

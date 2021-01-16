@@ -111,6 +111,8 @@ export default class TimelinePlugin {
     _onWrapperClick = e => {
         e.preventDefault();
         const relX = 'offsetX' in e ? e.offsetX : e.layerX;
+        const ws = this.wavesurfer;
+        this.drawer = ws.drawer;
         this.fireEvent('click', relX / this.wrapper.scrollWidth || 0);
     };
 
@@ -284,6 +286,8 @@ export default class TimelinePlugin {
      *
      */
     updateCanvases() {
+        const ws = this.wavesurfer;
+        this.drawer = ws.drawer;
         const totalWidth = Math.round(this.drawer.wrapper.scrollWidth);
         const requiredCanvases = Math.ceil(
             totalWidth / this.maxCanvasElementWidth
@@ -303,6 +307,8 @@ export default class TimelinePlugin {
      *
      */
     updateCanvasesPositioning() {
+        const ws = this.wavesurfer;
+        this.drawer = ws.drawer;
         // cache length for performance
         const canvasesLength = this.canvases.length;
         this.canvases.forEach((canvas, i) => {
@@ -338,6 +344,8 @@ export default class TimelinePlugin {
         if (duration <= 0) {
             return;
         }
+        const ws = this.wavesurfer;
+        this.drawer = ws.drawer;
         const wsParams = this.wavesurfer.params;
         const fontSize = this.params.fontSize * wsParams.pixelRatio;
         const totalSeconds = parseInt(duration, 10) + 1;

@@ -1,5 +1,5 @@
 /*!
- * wavesurfer.js minimap plugin 4.3.0 (2021-01-10)
+ * wavesurfer.js minimap plugin 4.3.0 (2021-01-16)
  * https://wavesurfer-js.org
  * @license BSD-3-Clause
  */
