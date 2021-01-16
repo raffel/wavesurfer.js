@@ -125,6 +125,7 @@ export default class TimelinePlugin {
      * @param {object} ws Wavesurfer instance
      */
     constructor(params, ws) {
+        this.params = params;
         this.container =
             'string' == typeof params.container
                 ? document.querySelector(params.container)
@@ -286,8 +287,19 @@ export default class TimelinePlugin {
      *
      */
     updateCanvases() {
-        const ws = this.wavesurfer;
-        this.drawer = ws.drawer;
+        if (!this.drawer.wrapper) {
+          while (this.canvases.length > 0) {
+              this.removeCanvas();
+          }
+          const ws = this.wavesurfer;
+          this.drawer = ws.drawer;
+          this.container =
+              'string' == typeof this.params.container
+                  ? document.querySelector(this.params.container)
+                  : this.params.container;
+          this.createWrapper();
+          this._onReady();
+        }
         const totalWidth = Math.round(this.drawer.wrapper.scrollWidth);
         const requiredCanvases = Math.ceil(
             totalWidth / this.maxCanvasElementWidth
